@@ -218,6 +218,9 @@ Calculate the average temperature for each month across the whole data frame (us
 
 ```{r}
 
+# apply avg_temp function to the month columns only 
+monthly_avg_temp <- apply(max_temps[, 3:ncol(max_temps)], 2, mean)
+monthly_avg_temp
 
 ```
 
@@ -233,6 +236,10 @@ Create three new data frames by slicing the data by state.
 No need to print any output here.
 
 ```{r}
+# slice to ensure rows have desired state
+co_max_temps <- max_temps[max_temps$state == "CO", ]
+oh_max_temps <- max_temps[max_temps$state == "OH", ]
+va_max_temps <- max_temps[max_temps$state == "VA", ]
 
 ```
 
@@ -254,6 +261,22 @@ Example (this is NOT the answer just an example of what goes in the {}):
 Note: This code should still run successfully even if the numbers were to change.
 
 ```{r}
+# get months only for Colorado
+co_monthly_temps <- co_max_temps[ , -c(1,2)]
+
+#apply median temp function to CO data set
+median_annual_temps <- apply(co_monthly_temps, 1, median)
+
+#find index of hottest median annual temp
+hottest_co_idx <- which.max(median_annual_temps)
+# use index to find corresponding year in co_max_temps dataset
+hottest_co_year <- co_max_temps[hottest_co_idx, 2]
+
+#same idea for minimum temperature 
+coldest_co_idx <- which.min(median_annual_temps)
+coldest_co_year <- co_max_temps[coldest_co_idx, 2]
+
+print(paste0("The maximum median annual temperature of ", max(median_annual_temps), " occurred in ", hottest_co_year, " and the minimum median annual temperature of ", min(median_annual_temps), " occurred in ", coldest_co_year, "."))
 
 ```
 
