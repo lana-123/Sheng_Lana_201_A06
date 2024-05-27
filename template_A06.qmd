@@ -184,6 +184,15 @@ ie: 91 rounds to 90; 173 rounds to 200; 1450 rounds to 1000
 Hint: use `MARGIN = 1:2` to apply the function to each value instead of only a row/col.
 
 ```{r}
+custom_rounding <- function(number){
+  # round to desired place value
+  round_to <- nchar(number) - 1
+  rounded_num <- round(number, digits = -round_to)
+  return(rounded_num)
+}
+
+# apply function to matrix 
+rounded_mat_rand <- apply(mat_rand, 1:2, custom_rounding)
 
 ```
 
@@ -208,6 +217,7 @@ max_temps <- read_tsv("state_max_temps.tsv") |>
 Calculate the average temperature for each month across the whole data frame (using the data for all three states together).
 
 ```{r}
+
 
 ```
 
